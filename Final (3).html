@@ -1,0 +1,425 @@
+import logic.html as log
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Excellence | Law Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #3949ab;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: var(--light-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(26, 35, 126, 0.95);
+            padding: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #aaa;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url(spectre.jpg) center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services {
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .service-card.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            transition: transform 0.1s  ease-out;
+
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3:hover{
+            color:rgb(0, 208, 239);
+        }
+
+        /* Remove specific hover effects for inner elements */
+        .service-icon:hover {
+            transform: none;
+            transition: none;
+            cursor: inherit;
+        }
+
+        
+        img{
+            width: 100%;
+            height: auto;
+            
+        }
+
+        
+        .about {
+            background-color: white;
+            padding: 5rem 1rem;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .about-text.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .lawyer-image {
+            width: 100%;
+            height: 400px;
+            background: url('/api/placeholder/600/400') center/cover;
+            border-radius: 10px;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .lawyer-image.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ratings-reviews {
+            background-color: #f9f9f9;
+            padding: 5rem 1rem;
+            text-align: center;
+        }
+
+        .ratings-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .star-rating {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .rating-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .client-reviews {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            overflow-x: auto; /* Allows horizontal scrolling if needed */
+            padding-bottom: 1rem; /* Adds space for the scrollbar */
+        }
+
+        .review-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin:10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px; /* Fixed width instead of max-width */
+            flex-shrink: 0; /* Prevents cards from shrinking */
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: scale(1.1);
+            background-color: #f0f0f0;
+            z-index: 1;
+        }
+
+        .review-card p {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #333;
+            pointer-events: none;
+        }
+
+        .client-name {
+            font-weight: bold;
+            color: var(--primary-color);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">Legal Excellence</a>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            
+                    <a href="client.html">Client</a>
+                    <a href="app.html">Lawyer</a>
+                
+                <div>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+           <h1>Expert Legal Solutions</h1>
+            <p>Dedicated to protecting your rights and achieving the best possible outcomes for your legal matters.</p>
+            <a href="#services" class="cta-button">Explore Our Services</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>Comprehensive legal solutions tailored to your needs</p>
+        </div>
+        <div class="services-grid" >
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3 href="#new.html">Legal Consultation</h3>
+                <p>Expert advice on your legal matters with a personalized approach to understanding your unique situation.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📝</div>
+                <h3 href="#new.html">Contract Review</h3>
+                <p>Thorough analysis and review of legal documents to ensure your interests are protected.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">👨‍⚖️</div>
+                <h3 href="#new.html">Court Representation</h3>
+                <p>Strong advocacy and representation in court proceedings across various legal matters.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤝</div>
+                <h3 href="#new.html">Mediation</h3>
+                <p>Professional mediation services to resolve disputes efficiently and cost-effectively.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📄</div>
+                <h3 href="#new.html">Legal Document Preparation</h3>
+                <p>Careful preparation and review of all types of legal documents and filings.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="ratings-reviews">
+        <div class="ratings-content">
+            <h2>Client Satisfaction</h2>
+            <div class="star-rating">★★★★★</div>
+            <div class="rating-number">4.9 out of 5 stars</div>
+            <div class="client-reviews">
+                <div class="review-card">
+                    <p>"Exceptional service! The team at Legal Excellence went above and beyond to ensure the best outcome for my case."</p>
+                    <div class="client-name">- John D.</div>
+                </div>
+                <div class="review-card">
+                    <p>"Professional, knowledgeable, and compassionate. I couldn't have asked for better legal representation."</p>
+                    <div class="client-name">- Sarah M.</div>
+                </div>
+                <div class="review-card">
+                    <p>"Their expertise in contract law saved my business from a potential disaster. Highly recommended!"</p>
+                    <div class="client-name">- Michael R.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About Our Firm</h2>
+                <p>With over 20 years of experience in various aspects of law, our team of dedicated attorneys is committed to providing exceptional legal services to our clients.</p>
+                <p>We pride ourselves on our:</p>
+                <ul>
+                    <li>Extensive courtroom experience</li>
+                    <li>Personalized approach to each case</li>
+                    <li>Track record of successful outcomes</li>
+                    <li>Commitment to client communication</li>
+                </ul>
+                <a href="#contact" class="cta-button">Schedule a Consultation</a>
+            </div>
+            <div class="lawyer-image"></div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe about section elements
+        observer.observe(document.querySelector('.about-text'));
+        observer.observe(document.querySelector('.lawyer-image'));
+
+        // Stagger service cards animation
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.2}s`;
+        });
+    </script>
+</body>
+</html>

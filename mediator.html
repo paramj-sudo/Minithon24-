@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justice Mediation | Professional Court Mediator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: var(--light-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(44, 62, 80, 0.95);
+            padding: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #bdc3c7;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('/api/placeholder/1200/800') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services {
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .service-card.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .about {
+            background-color: white;
+            padding: 5rem 1rem;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .about-text.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .mediator-image {
+            width: 100%;
+            height: 400px;
+            background: url('/api/placeholder/600/400') center/cover;
+            border-radius: 10px;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .mediator-image.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">Justice Mediation</a>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Professional Court Mediation</h1>
+            <p>Facilitating fair and efficient resolutions for legal disputes through expert mediation services.</p>
+            <a href="#services" class="cta-button">Explore My Services</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="section-title">
+            <h2>Mediation Services</h2>
+            <p>Tailored mediation solutions for various court-related disputes</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3>Civil Litigation Mediation</h3>
+                <p>Expert mediation for civil disputes, helping parties reach mutually beneficial agreements outside of trial.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">👨‍👩‍👧‍👦</div>
+                <h3>Family Court Mediation</h3>
+                <p>Compassionate mediation services for divorce, child custody, and other family-related legal matters.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3>Commercial Dispute Mediation</h3>
+                <p>Efficient resolution of business and commercial conflicts through skilled negotiation and mediation techniques.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏘️</div>
+                <h3>Landlord-Tenant Mediation</h3>
+                <p>Impartial mediation services to resolve disputes between landlords and tenants, avoiding costly court proceedings.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📝</div>
+                <h3>Settlement Conferences</h3>
+                <p>Facilitating productive settlement conferences to help parties reach agreements before trial.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>With over 15 years of experience as a court mediator, I am committed to helping parties find common ground and reach fair resolutions.</p>
+                <p>My approach is characterized by:</p>
+                <ul>
+                    <li>Impartiality and neutrality</li>
+                    <li>Excellent communication and active listening skills</li>
+                    <li>Deep understanding of legal processes and court procedures</li>
+                    <li>Ability to navigate complex emotional dynamics</li>
+                    <li>Track record of successful mediations and satisfied clients</li>
+                </ul>
+                <a href="#contact" class="cta-button">Schedule a Consultation</a>
+            </div>
+            <div class="mediator-image"></div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe about section elements
+        observer.observe(document.querySelector('.about-text'));
+        observer.observe(document.querySelector('.mediator-image'));
+
+        // Stagger service cards animation
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.2}s`;
+        });
+    </script>
+</body>
+</html>

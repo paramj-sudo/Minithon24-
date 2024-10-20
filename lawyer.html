@@ -71,7 +71,7 @@
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                        url('/api/placeholder/1920/1080') center/cover;
+                        url(spectre.jpg) center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -123,6 +123,13 @@
             opacity: 1;
         }
 
+        .service-card:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            transition: transform 0.1s  ease-out;
+
+        }
+
         .service-card h3 {
             color: var(--primary-color);
             margin-bottom: 1rem;
@@ -134,6 +141,25 @@
             margin-bottom: 1rem;
         }
 
+        .service-card h3:hover{
+            color:rgb(0, 208, 239);
+        }
+
+        /* Remove specific hover effects for inner elements */
+        .service-icon:hover {
+            transform: none;
+            transition: none;
+            cursor: inherit;
+        }
+
+        
+        img{
+            width: 100%;
+            height: auto;
+            
+        }
+
+        
         .about {
             background-color: white;
             padding: 5rem 1rem;
@@ -202,6 +228,7 @@
                 grid-template-columns: 1fr;
             }
         }
+
     </style>
 </head>
 <body>
@@ -218,7 +245,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Expert Legal Solutions</h1>
+           <h1>Expert Legal Solutions</h1>
             <p>Dedicated to protecting your rights and achieving the best possible outcomes for your legal matters.</p>
             <a href="#services" class="cta-button">Explore Our Services</a>
         </div>
@@ -229,30 +256,30 @@
             <h2>Our Services</h2>
             <p>Comprehensive legal solutions tailored to your needs</p>
         </div>
-        <div class="services-grid">
+        <div class="services-grid" >
             <div class="service-card">
                 <div class="service-icon">⚖️</div>
-                <h3>Legal Consultation</h3>
+                <h3 href="#new.html">Legal Consultation</h3>
                 <p>Expert advice on your legal matters with a personalized approach to understanding your unique situation.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">📝</div>
-                <h3>Contract Review</h3>
+                <h3 href="#new.html">Contract Review</h3>
                 <p>Thorough analysis and review of legal documents to ensure your interests are protected.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">👨‍⚖️</div>
-                <h3>Court Representation</h3>
+                <h3 href="#new.html">Court Representation</h3>
                 <p>Strong advocacy and representation in court proceedings across various legal matters.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">🤝</div>
-                <h3>Mediation</h3>
+                <h3 href="#new.html">Mediation</h3>
                 <p>Professional mediation services to resolve disputes efficiently and cost-effectively.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">📄</div>
-                <h3>Legal Document Preparation</h3>
+                <h3 href="#new.html">Legal Document Preparation</h3>
                 <p>Careful preparation and review of all types of legal documents and filings.</p>
             </div>
         </div>

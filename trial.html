@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal eMarketplace</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .navbar {
+            background-color: var(--primary);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            padding: 0.5rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary);
+        }
+
+        .nav-button.active {
+            background-color: var(--secondary);
+        }
+
+        .lawyer-dashboard {
+            background-color: var(--accent);
+            padding: 0.5rem 1rem;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Dashboard Specific Styles */
+        .dashboard {
+            display: none;
+            padding: 2rem;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-top: 0.5rem;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            height: 300px;
+        }
+
+        .cases-table {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .welcome-header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Legal eMarketplace</a>
+            <div class="nav-buttons">
+                <button class="nav-button active" data-tab="home">Home</button>
+                <button class="nav-button" data-tab="find-services">Find Services</button>
+                <button class="nav-button" data-tab="for-providers">For Providers</button>
+                <button class="nav-button" data-tab="about">About</button>
+                <button class="lawyer-dashboard" data-tab="dashboard">Lawyer Dashboard</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="content"></div>
+    <div id="dashboard" class="dashboard"></div>
+
+    <script>
+        const content = document.getElementById('content');
+        const dashboard = document.getElementById('dashboard');
+        const navButtons = document.querySelectorAll('.nav-button, .lawyer-dashboard');
+
+        const pages = {
+            home: `
+                <h1>Welcome to Legal eMarketplace</h1>
+                <p>Find trusted legal professionals for your needs</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Easy Search</h3>
+                        <p>Find the right legal professional quickly</p>
+                    </div>
+                    <div class="card">
+                        <h3>Quality Assurance</h3>
+                        <p>Verified professionals with client ratings</p>
+                    </div>
+                    <div class="card">
+                        <h3>Secure & Transparent</h3>
+                        <p>Safe interactions with service providers</p>
+                    </div>
+                </div>
+            `,
+            'find-services': `
+                <h2>Find Legal Services</h2>
+                <input type="text" class="search-bar" placeholder="Search for legal services...">
+                <div class="grid">
+                    ${['Advocate', 'Mediator', 'Notary', 'Arbitrator', 'Document Writer']
+                        .map(service => `
+                            <div class="card">
+                                <h3>${service}</h3>
+                                <p>Find experienced ${service.toLowerCase()}s</p>
+                                <button class="btn">Find ${service}</button>
+                            </div>
+                        `).join('')}
+                </div>
+            `,
+            'for-providers': `
+                <h2>For Legal Service Providers</h2>
+                <p>Join our platform and grow your practice</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Rewards Program</h3>
+                        <p>Earn points and unlock benefits</p>
+                    </div>
+                    <div class="card">
+                        <h3>Expanded Reach</h3>
+                        <p>Connect with clients across India</p>
+                    </div>
+                </div>
+                <button class="btn">Join as a Provider</button>
+            `,
+            about: `
+                <h2>About Legal eMarketplace</h2>
+                <p>Connecting clients with trusted legal professionals</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Our Mission</h3>
+                        <p>Make legal services accessible and efficient</p>
+                    </div>
+                    <div class="card">
+                        <h3>Contact Us</h3>
+                        <p>123 Legal Street, New Delhi, India</p>
+                        <p>Phone: +91 1234567890</p>
+                        <p>Email: contact@legalemarketplace.in</p>
+                    </div>
+                </div>
+            `,
+            dashboard: `
+                <div class="welcome-header">
+                    <h1>Lawyer Dashboard</h1>
+                    <p>Welcome back, John Doe</p>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Total Earnings</h3>
+                        <div class="value">$125,000</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Cases</h3>
+                        <div class="value">15</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending Cases</h3>
+                        <div class="value">8</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Success Rate</h3>
+                        <div class="value">85%</div>
+                    </div>
+                </div>
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Monthly Earnings</h3>
+                        <canvas id="earningsChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Case Types Distribution</h3>
+                        <canvas id="caseTypesChart"></canvas>
+                    </div>
+                </div>
+                <div class="cases-table">
+                    <h3>Recent Cases</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Case ID</th>
+                                <th>Client Name</th>
+                                <th>Case Type</th>
+                                <th>Status</th>
+                                <th>Next Hearing</th>
+                            </tr>
+                        </thead>
+                        <tbody id="casesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            `
+        };
+
+        function setActiveTab(tab) {
+            navButtons.forEach(button => button.classList.toggle('active', button.dataset.tab === tab));
+            
+            if (tab === 'dashboard') {
+                content.style.display = 'none';
+                dashboard.style.display = 'block';
+                dashboard.innerHTML = pages[tab];
+                initializeDashboardCharts();
+                populateCasesTable();
+            } else {
+                content.style.display = 'block';
+                dashboard.style.display = 'none';
+                content.innerHTML = pages[tab];
+            }
+        }
+
+        function initializeDashboardCharts() {
+            // Monthly Earnings Chart
+            const earningsCtx = document.getElementById('earningsChart').getContext('2d');
+            new Chart(earningsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Monthly Earnings ($)',
+                        data: [15000, 18000, 22000, 19000, 25000, 26000],
+                        borderColor: '#3498db',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Case Types Chart
+            const typesCtx = document.getElementById('caseTypesChart').getContext('2d');
+            new Chart(typesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Civil', 'Criminal', 'Corporate', 'Family', 'Real Estate'],
+                    datasets: [{
+                        data: [30, 25, 20, 15, 10],
+                        backgroundColor: [
+                            '#2c3e50',
+                            '#3498db',
+                            '#e74c3c',
+                            '#2ecc71',
+                            '#f1c40f'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        function populateCasesTable() {
+            const cases = [
+                { id: 'C001', client: 'Alice Johnson', type: 'Civil', status: 'Active', nextHearing: '2024-10-25' },
+                { id: 'C002', client: 'Bob Smith', type: 'Criminal', status: 'Pending', nextHearing: '2024-10-28' },
+                { id: 'C003', client: 'Carol White', type: 'Corporate', status: 'Closed', nextHearing: 'N/A' },
+                { id: 'C004', client: 'David Brown', type: 'Family', status: 'Active', nextHearing: '2024-10-30' },
+                { id: 'C005', client: 'Eve Wilson', type: 'Real Estate', status: 'Pending', nextHearing: '2024-11-02' }
+            ];
+
+            const tbody = document.getElementById('casesTableBody');
+            tbody.innerHTML = cases.map(caseData => `
+                <tr>
+                    <td>${caseData.id}</td>
+                    <td>${caseData.client}</td>
+                    <td>${caseData.type}</td>
+                    <td>${caseData.status}</td>
+                    <td>${caseData.nextHearing}</td>
+                </tr>
+            `).join('');
+        }
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => setActiveTab(button.dataset.tab));
+        });
+
+        setActiveTab('home');
+    </script>
+</body>
+</html>
